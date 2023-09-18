@@ -46,6 +46,6 @@ for i in range(attempt):
     if np.abs(y) < err:
         break
     
-    print("attempt {} : (({}, {}), {})".format(i, a_now, b_now, y))
+    print("attempt {} : (({}, {}), lose : {})".format(i, a_now, b_now, y))
 
 print("answer : ({}, {})".format(a_now, b_now))
