@@ -1,5 +1,6 @@
-# A program to find a closest x where f(x) equals to target
-# f(x) = x * x + 2
+# A program to find a and b, cloeset with f(x)
+# f(x) = x**2 + 2
+# g(x) = a * x**2 + b
 
 import numpy as np
 import sys
@@ -17,7 +18,6 @@ err = sys.float_info.epsilon
 
 data_size = 10000
 x_data = np.arange(min_range, max_range, (max_range - min_range)/data_size)
-data = np.array([func(x) for x in x_data])
 
 a_now = 0
 a_pre = a_now

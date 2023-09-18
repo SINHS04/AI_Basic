@@ -1,12 +1,13 @@
-# A program to find a closest x where f(x) equals to target
-# f(x) = x * x
+# A program to find a, cloeset with f(x)
+# f(x) = x**2
+# g(x) = a * x**2
 
 import numpy as np
 import sys
 
 
 def func(x):
-    return x * x
+    return x**2
 
 
 def derivative(x):

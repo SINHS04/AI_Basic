@@ -1,4 +1,4 @@
-# A program to find a closest x where f(x) equals to target
+# A program to find a closest x where f(x) equals to target(0)
 # f(x) = x * x
 
 import numpy as np
@@ -6,7 +6,7 @@ import sys
 
 alpha = 0.01
 target = 0
-attempt = 100000
+attempt = 1000000
 err = sys.float_info.epsilon
 
 x_pre = 8 # init value
