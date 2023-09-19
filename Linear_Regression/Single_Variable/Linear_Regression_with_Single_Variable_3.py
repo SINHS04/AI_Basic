@@ -13,7 +13,7 @@ def func(x):
 min_range = 0
 max_range = np.pi
 data_range = max_range - min_range
-alpha = 0.01
+alpha = 0.001
 attempt = 100000
 err = sys.float_info.epsilon
 
@@ -24,11 +24,11 @@ a_pre = a_now
 
 
 def loss_derivative(a):
-    return np.sum(np.array([loss_derivative_f(a, x) for x in range(data_size)])) / data_size
+    return np.mean(np.array([loss_derivative_f(a, x) for x in range(data_size)]))
 
 
 def loss(a):
-    return np.sum(np.array([np.abs(loss_f(a, x)) for x in range(data_size)])) / data_size
+    return np.mean(np.array([np.abs(loss_f(a, x)) for x in range(data_size)]))
 
 
 def loss_derivative_f(a, x):
