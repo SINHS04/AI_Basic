@@ -13,18 +13,18 @@ def func(x):
 min_range = 0
 max_range = np.pi
 data_range = max_range - min_range
-alpha = 0.000001
+alpha = 0.01
 attempt = 100000
 err = sys.float_info.epsilon
 
 data_size = 10000
 data = np.array([func(x) for x in np.arange(min_range, max_range, data_range/data_size)])
-a_now = 0.9999
+a_now = 2
 a_pre = a_now
 
 
 def loss_derivative(a):
-    return np.sum(np.array([loss_derivative_f(a, x) if np.sign(loss_f(a, x)) == 1 else -loss_derivative_f(a, x) for x in range(data_size)])) / data_size
+    return np.sum(np.array([loss_derivative_f(a, x) for x in range(data_size)])) / data_size
 
 
 def loss(a):
@@ -32,11 +32,16 @@ def loss(a):
 
 
 def loss_derivative_f(a, x):
-    return data_range * x * np.cos(a * data_range * x / data_size) / data_size
+    ret = cal_x(x) * np.cos(a * cal_x(x))
+    return ret if np.sign(loss_f(a, x)) == 1 else -ret
 
 
 def loss_f(a, x):
-    return np.sin(a * data_range * x / data_size) - data[x]
+    return np.sin(a * cal_x(x)) - data[x]
+
+
+def cal_x(x):
+    return data_range * x / data_size
 
 
 for i in range(attempt):
