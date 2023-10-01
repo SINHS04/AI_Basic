@@ -12,40 +12,35 @@ def func(x):
 
 min_range = -2
 max_range = 2
-alpha = 0.0000001
-attempt = 100000
+alpha = 0.000001
+attempt = 10001
 err = sys.float_info.epsilon
 
 data_size = 10000
-x_data = np.arange(min_range, max_range, (max_range - min_range)/data_size)
+x_data = np.arange(min_range, max_range, (max_range - min_range) / data_size)
 
-a_now = 0
-a_pre = a_now
-b_now = 0
-b_pre = b_now
+a = 5
+b = 5
 
 
-def loss_derivative_a(a, b):
-    return np.sum(np.array([2 * (x**2 * (a - 1) + b - 2) * x**2 for x in x_data]))
-
-
-def loss_derivative_b(a, b):
-    return np.sum(np.array([2 * (x**2 * (a - 1) + b - 2) for x in x_data]))
+def loss_derivative(a, b):
+    tmp = 2 * (x_data**2 * (a - 1) + b - 2)
+    return np.sum(tmp * x_data**2), np.sum(tmp)
 
 
 def loss(a, b):
-    return np.sum(np.array([(x**2 * (a - 1) + 2 - b)**2 for x in x_data]))
+    return np.sum((x_data**2 * (a - 1) + 2 - b) ** 2)
 
 
 for i in range(attempt):
-    a_now = a_pre - alpha * loss_derivative_a(a_pre, b_pre)
-    b_now = b_pre - alpha * loss_derivative_b(a_pre, b_pre)
-    a_pre = a_now
-    b_pre = b_now
-    y = loss(a_now, b_now)
+    gradient_a, gradient_b = loss_derivative(a, b)
+    a = a - alpha * gradient_a
+    b = b - alpha * gradient_b
+    y = loss(a, b)
     if np.abs(y) < err:
         break
-    
-    print("attempt {} : (({}, {}), lose : {})".format(i, a_now, b_now, y))
 
-print("answer : ({}, {})".format(a_now, b_now))
+    if i % 200 == 0:
+        print("attempt {} : (({}, {}), lose : {})".format(i, a, b, y))
+
+print("answer : ({}, {})".format(a, b))
