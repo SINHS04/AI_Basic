@@ -12,42 +12,38 @@ def func(x):
 
 min_range = 0
 max_range = np.pi
-alpha = 0.000001
+lr = 0.001
 attempt = 100000
 err = sys.float_info.epsilon
 
 data_size = 10000
-# x_data = np.arange(min_range, max_range, (max_range - min_range)/data_size)
-data = func(np.arange(min_range, max_range, (max_range - min_range)/data_size))
-a_now = 2
-a_pre = a_now
-
-# print(y_data)
+x_data = np.arange(min_range, max_range, (max_range - min_range)/data_size)
+y_data = func(np.arange(min_range, max_range, (max_range - min_range)/data_size))
+a = 3
 
 
-def loss_derivative(a):
-    return np.sum(np.array([loss_derivative_function(a, x) if np.sign(loss_function(a, x)) == 1 else -loss_derivative_function(a, x) for x in range(data_size)]))
+def loss_func(a):
+    return np.sin(a * x_data) - y_data
+
+
+def loss_func_derivate(a):
+    return x_data * np.cos(a * x_data) * np.sign(loss_func(a))
 
 
 def loss(a):
-    return np.sum(np.array([np.abs(loss_function(a, x)) for x in range(data_size)]))
+    return np.mean(np.abs(loss_func(a)))
 
 
-def loss_derivative_function(a, x):
-    return x * np.cos(a * x)
-
-
-def loss_function(a, x):
-    return np.sin(a * x) - data(x)
+def gradient(a):
+    return np.mean(loss_func_derivate(a))
 
 
 for i in range(attempt):
-    a_now = a_pre - alpha * loss_derivative(a_pre)
-    a_pre = a_now
-    y = loss(a_now)
+    a = a - lr * gradient(a)
+    y = loss(a)
     if np.abs(y) < err:
         break
     
-    print("attempt {} : ({}, {})".format(i, a_now, y)) # print attempt contains current 'a' value and loss value
+    print("attempt {} : ({}, {})".format(i, a, y)) # print attempt contains current 'a' value and loss value
 
-print("answer : ({}, {})".format(a_now, func(a_now)))
+print("answer : ({}, {})".format(a, func(a)))
