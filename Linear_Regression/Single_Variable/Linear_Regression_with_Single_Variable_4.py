@@ -41,7 +41,7 @@ def gradient(a):
 for i in range(attempt):
     a = a - lr * gradient(a)
     y = loss(a)
-    if np.abs(y) < err:
+    if np.abs(y) < err:  
         break
     
     print("attempt {} : ({}, {})".format(i, a, y)) # print attempt contains current 'a' value and loss value
