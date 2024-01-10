@@ -1,0 +1,4 @@
+MNIST/wandb/
+MNIST/mnist/
+MNIST/checkpoints/
+MNIST/__pycache__/
