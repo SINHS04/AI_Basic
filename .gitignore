@@ -2,3 +2,8 @@ MNIST/wandb/
 MNIST/mnist/
 MNIST/checkpoints/
 MNIST/__pycache__/
+tmp.py
+CIFAR10/wandb/
+CIFAR10/data/
+CIFAR10/model/
+CIFAR10/__pycache__/

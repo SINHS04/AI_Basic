@@ -1,9 +1,9 @@
-from torch import nn, optim
+from torch import nn
 
 def get_model():
     class MyModel(nn.Module):
-        def __init__(self, n_input, n_output):
-            super().__init__()
+        def __init__(self, n_input, n_output, **kwargs):
+            super(MyModel, self).__init__(**kwargs)
 
             self.model = nn.Sequential(
                 nn.Linear(n_input, 256),
